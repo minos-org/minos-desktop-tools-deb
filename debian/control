@@ -1,0 +1,14 @@
+Source: minos-tools
+Section: x11
+Priority: optional
+Maintainer: Javier P.L. <chilicuil@ubuntu.com>
+Build-Depends: debhelper (>= 7.0.5)
+Standards-Version: 3.9.4
+Vcs-Git: git://github.com/minos-org/minos-tools-deb.git
+Vcs-Browser: https://github.com/minos-org/minos-tools-deb.git
+
+Package: minos-tools
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Minos tools
+ Minos tools

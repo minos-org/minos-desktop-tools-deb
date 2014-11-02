@@ -1,0 +1,2 @@
+tools/* usr/bin/
+autocp/completions/* usr/share/bash-completion/completions
