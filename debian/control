@@ -8,7 +8,7 @@ Vcs-Git: git://github.com/minos-org/minos-tools-deb.git
 Vcs-Browser: https://github.com/minos-org/minos-tools-deb.git
 
 Package: minos-tools
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Minos tools
  Minos tools
