@@ -1,2 +1,4 @@
-tools/* usr/bin/
-autocp/completions/* usr/share/bash-completion/completions
+tools/*              usr/bin/
+urxvt/*              usr/lib/minos/urxvt/
+desktop/*            usr/share/applications/
+autocp/completions/* usr/share/bash-completion/completions/

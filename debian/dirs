@@ -1,2 +1,4 @@
 usr/bin
+usr/share/applications
+usr/lib/minos/urxvt
 usr/share/bash-completion/completions
