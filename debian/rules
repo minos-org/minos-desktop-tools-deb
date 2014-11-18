@@ -17,6 +17,9 @@ export DH_VERBOSE=1
 %:
 	dh $@
 
+override_dh_installcron:
+	dh_installcron --name=watch-battery
+
 get-orig-source:
 	rm -rf debian/tmp; mkdir debian/tmp
 	cd debian/tmp; wget https://github.com/minos-org/minos-tools/archive/${DEB_MASTER_VERSION}.tar.gz
