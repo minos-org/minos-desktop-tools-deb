@@ -1,0 +1,32 @@
+#!/bin/sh
+set -e
+. /usr/share/debconf/confmodule
+
+case "${1}" in
+    configure)
+        #fetching configuration from debconf
+        db_get minos-tools/cronjobs
+        cronjobs="${RET}"
+        db_metaget minos-tools/cronjobs Choices
+        origcronjobs="${RET}"
+
+        for origcronjob in ${origcronjobs}; do
+            origcronjob="${origcronjob%,*}"
+            mv /etc/cron.d/"${origcronjob}" /etc/cron.d/"${origcronjob}".disabled 2>/dev/null || true
+        done
+
+        for cronjob in ${cronjobs}; do
+            cronjob="${cronjob%,*}"
+            mv /etc/cron.d/"${cronjob}".disabled /etc/cron.d/"${cronjob}" 2>/dev/null || true
+        done
+        ;;
+    abort-upgrade|abort-deconfigure|abort-remove)
+        ;;
+    *)
+        printf "%s\\n" "${0} called with unknown argument \`${1}'" 1>&2
+        exit 1
+        ;;
+esac
+
+#DEBHELPER#
+exit 0

@@ -9,6 +9,6 @@ Vcs-Browser: https://github.com/minos-org/minos-tools-deb.git
 
 Package: minos-tools
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, debconf
 Description: Minos tools
  Minos tools

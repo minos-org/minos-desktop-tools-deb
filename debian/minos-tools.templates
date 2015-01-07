@@ -1,0 +1,17 @@
+Template: minos-tools/cronjobs
+Type: multiselect
+Choices: watch-battery, update-cd
+Default: watch-battery, update-cd
+Description: Select the cronjobs which should be installed.
+ Minos default behavour requires additional cronjobs to fullfill the minos
+ experience.
+ .
+ watch-battery: monitories the battery and send warnings whenever it has
+ low energy. By default it hibernates the system when the battery drops
+ behind 5%. This behavour can be controled thought the watch-battery-action,
+ and watch-battery-values variables. See http://minos.io/doc/config
+ .
+ update-cd: update wcd user's databases. By default, cd in minos is
+ wrapped through the wcd script which calls wcd.exec and look-up at the
+ user wcd database ~/.wcd/.treedata.wcd. It does so users can jump directly to
+ desired paths writing them partially.
