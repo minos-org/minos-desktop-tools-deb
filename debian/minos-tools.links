@@ -1,6 +1,7 @@
 usr/bin/minos-meta usr/bin/m-autostart
 usr/bin/minos-meta usr/bin/m-composition
 usr/bin/minos-meta usr/bin/m-eyeshield
+usr/bin/minos-meta usr/bin/m-handshield
 usr/bin/minos-meta usr/bin/m-clipboard
 usr/bin/minos-meta usr/bin/m-statusbar
 usr/bin/minos-meta usr/bin/m-session-manager
