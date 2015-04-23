@@ -1,17 +1,17 @@
 Template: minos-tools/cronjobs
 Type: multiselect
-Choices: watch-battery, update-cd
-Default: watch-battery, update-cd
-Description: Select the cronjobs which should be installed.
- Minos default behavour requires additional cronjobs to fullfill the minos
- experience.
+Choices: watch-battery, backup-mozilla
+Default: watch-battery, backup-mozilla
+Description: Select the cronjobs to be installed.
+ Minos default behavor requires additional cronjobs to fullfill the minos
+ experience, all add-ons can be enable or disable by marking the following
+ list
  .
- watch-battery: monitories the battery and send warnings whenever it has
- low energy. By default it hibernates the system when the battery drops
- behind 5%. This behavour can be controled thought the watch-battery-action,
- and watch-battery-values variables. See http://minos.io/doc/config
+ watch-battery: monitories the battery and sends warnings whenever the system
+ reports low energy. By default it hibernates the system when the battery drops
+ behind 5%. This behavour can be controlled throught the m-battery-config
+ variable. See http://minos.io/doc/config
  .
- update-cd: update wcd user's databases. By default, cd in minos is
- wrapped through the wcd script which calls wcd.exec and look-up at the
- user wcd database ~/.wcd/.treedata.wcd. It does so users can jump directly to
- desired paths writing them partially.
+ backup-mozilla: create rotative mozilla backups to $HOME/.mozilla-backups
+ for every user in the system who happen to run any mozilla application at
+ the time of executing this job. By default it saves 5 compressed snapshopts.
