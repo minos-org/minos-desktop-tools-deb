@@ -4,6 +4,7 @@ usr/bin/minos-meta usr/bin/m-eyesaver
 usr/bin/minos-meta usr/bin/m-handsaver
 usr/bin/minos-meta usr/bin/m-clipboard
 usr/bin/minos-meta usr/bin/m-statusbar
+usr/bin/minos-meta usr/bin/m-window-jumper
 usr/bin/minos-meta usr/bin/m-session-manager
 usr/bin/minos-meta usr/bin/m-hibernate
 usr/bin/minos-meta usr/bin/m-suspend
