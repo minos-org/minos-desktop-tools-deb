@@ -14,5 +14,5 @@ Description: Minos tools
  This package install the minimal tools required by a full minos desktop
  environment.
  .
- Run $ sudo dpkg reconfigure minos-tools for selecting what services to
+ Run $ sudo dpkg-reconfigure minos-tools for selecting what services to
  enable.

@@ -10,8 +10,8 @@ Description: Select the cronjobs to be installed.
  watch-battery: monitories the battery and sends warnings whenever the system
  reports low energy. By default it hibernates the system when the battery drops
  behind 5%. This behavour can be controlled throught the m-battery-config
- variable. See http://minos.io/doc/config
+ variable in either /etc/minos/config or $/HOME/.minos/config.
+ See http://minos.io/doc/config for more details
  .
  backup-mozilla: create rotative mozilla backups to $HOME/.mozilla-backups
- for every user in the system who happen to run any mozilla application at
- the time of executing this job. By default it saves 5 compressed snapshopts.
+ for every user in the system. By default it saves 5 compressed snapshopts.

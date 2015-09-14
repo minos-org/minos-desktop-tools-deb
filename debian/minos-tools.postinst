@@ -4,17 +4,22 @@ set -e
 
 case "${1}" in
     configure)
-        #fetching configuration from debconf
+        #get settings from user
         db_get minos-tools/cronjobs
         cronjobs="${RET}"
+
+        #get default settings
         db_metaget minos-tools/cronjobs Choices
         origcronjobs="${RET}"
 
+        #first disable all settings
         for origcronjob in ${origcronjobs}; do
+            #eg:watch-battery, backup-mozilla
             origcronjob="${origcronjob%,*}"
             mv /etc/cron.d/"${origcronjob}" /etc/cron.d/"${origcronjob}".disabled 2>/dev/null || true
         done
 
+        #then enable only the selected ones
         for cronjob in ${cronjobs}; do
             cronjob="${cronjob%,*}"
             mv /etc/cron.d/"${cronjob}".disabled /etc/cron.d/"${cronjob}" 2>/dev/null || true
