@@ -1,11 +1,11 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 
 Files: *
-Copyright: Copyright (c) 2014, Javier P.L. <chilicuil@ubuntu.com>
+Copyright: Copyright (c) 2014, Javier López <m@javier.io>
 License: Several
 
 Files: debian/*
-Copyright: Copyright (c) 2014, Javier P.L. <chilicuil@ubuntu.com>
+Copyright: Copyright (c) 2014, Javier López <m@javier.io>
 License: GPL-3
 
 License: GPL-3

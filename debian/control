@@ -1,7 +1,7 @@
 Source: minos-tools
 Section: utils
 Priority: optional
-Maintainer: Javier P.L. <chilicuil@ubuntu.com>
+Maintainer: Javier López <m@javier.io>
 Build-Depends: debhelper (>= 7.0.5)
 Standards-Version: 3.9.4
 Vcs-Git: git://github.com/minos-org/minos-tools-deb.git
