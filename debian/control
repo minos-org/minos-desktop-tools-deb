@@ -1,18 +1,18 @@
-Source: minos-tools
+Source: minos-desktop-tools
 Section: utils
 Priority: optional
 Maintainer: Javier López <m@javier.io>
 Build-Depends: debhelper (>= 7.0.5)
 Standards-Version: 3.9.4
-Vcs-Git: git://github.com/minos-org/minos-tools-deb.git
-Vcs-Browser: https://github.com/minos-org/minos-tools-deb.git
+Vcs-Git: git://github.com/minos-org/minos-desktop-tools-deb.git
+Vcs-Browser: https://github.com/minos-org/minos-desktop-tools-deb.git
 
-Package: minos-tools
+Package: minos-desktop-tools
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, debconf
 Description: Minos tools
  This package install the minimal tools required by a full minos desktop
  environment.
  .
- Run $ sudo dpkg-reconfigure minos-tools for selecting what services to
+ Run $ sudo dpkg-reconfigure minos-desktop-tools for selecting what services to
  enable.

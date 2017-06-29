@@ -5,11 +5,11 @@ set -e
 case "${1}" in
     configure)
         #get settings from user
-        db_get minos-tools/cronjobs
+        db_get minos-desktop-tools/cronjobs
         cronjobs="${RET}"
 
         #get default settings
-        db_metaget minos-tools/cronjobs Choices
+        db_metaget minos-desktop-tools/cronjobs Choices
         origcronjobs="${RET}"
 
         #first disable all settings

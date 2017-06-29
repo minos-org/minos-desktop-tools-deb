@@ -1,11 +1,11 @@
-minos-tools (1:201608161049+git68037fb-minos) precise; urgency=low
+minos-desktop-tools (1:201706291232+git8372627-minos) stable; urgency=low
 
   * add trusty/xenial packages into lp recipe:
-    https://code.launchpad.net/~minos-archive/+recipe/minos-tools
+    https://code.launchpad.net/~minos-archive/+recipe/minos-desktop-tools
 
  -- Javier López <m@javier.io>  Tue, 16 Aug 2016 10:49:48 -0500
 
-minos-tools (1:201501071215+git68037fb-minos) precise; urgency=low
+minos-desktop-tools (1:201501071215+git68037fb-minos) stable; urgency=low
 
   * Initial version
 

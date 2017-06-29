@@ -1,4 +1,4 @@
-Template: minos-tools/cronjobs
+Template: minos-desktop-tools/cronjobs
 Type: multiselect
 Choices: watch-battery, backup-mozilla
 Default: watch-battery, backup-mozilla

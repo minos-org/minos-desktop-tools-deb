@@ -23,10 +23,10 @@ override_dh_installcron:
 
 get-orig-source:
 	rm -rf debian/tmp; mkdir debian/tmp
-	cd debian/tmp; wget https://github.com/minos-org/minos-tools/archive/${DEB_MASTER_VERSION}.tar.gz
+	cd debian/tmp; wget https://github.com/minos-org/minos-desktop-tools/archive/${DEB_MASTER_VERSION}.tar.gz
 	cd debian/tmp; tar xvzf ${DEB_MASTER_VERSION}.tar.gz
-	cd debian/tmp; mv minos-tools-* minos-tools-${DEB_UPSTREAM_VERSION}
-	cd debian/tmp; tar cvJf minos-tools_${DEB_UPSTREAM_VERSION}.orig.tar.xz minos-tools-${DEB_UPSTREAM_VERSION}
-	mv debian/tmp/minos-tools_${DEB_UPSTREAM_VERSION}.orig.tar.xz .
-	mv debian/tmp/minos-tools-${DEB_UPSTREAM_VERSION} .
+	cd debian/tmp; mv minos-desktop-tools-* minos-desktop-tools-${DEB_UPSTREAM_VERSION}
+	cd debian/tmp; tar cvJf minos-desktop-tools_${DEB_UPSTREAM_VERSION}.orig.tar.xz minos-desktop-tools-${DEB_UPSTREAM_VERSION}
+	mv debian/tmp/minos-desktop-tools_${DEB_UPSTREAM_VERSION}.orig.tar.xz .
+	mv debian/tmp/minos-desktop-tools-${DEB_UPSTREAM_VERSION} .
 	rm -rf debian/tmp
