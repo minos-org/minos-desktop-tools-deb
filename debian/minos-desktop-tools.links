@@ -12,6 +12,7 @@ usr/bin/minos-meta usr/bin/m-lock
 usr/bin/minos-meta usr/bin/m-keyboard
 usr/bin/minos-meta usr/bin/m-movietime
 usr/bin/minos-meta usr/bin/m-help
+usr/bin/minos-meta usr/bin/m-menu
 usr/bin/minos-meta usr/bin/m-launcher
 usr/bin/minos-meta usr/bin/m-killer
 usr/bin/minos-meta usr/bin/m-browser

@@ -17,9 +17,13 @@ export DH_VERBOSE=1
 %:
 	dh $@
 
-override_dh_installcron:
-	dh_installcron --name=watch-battery
-	dh_installcron --name=backup-mozilla
+#watch-battery.{service,timer} (debian/*.watch-battery.user.*) are units of each user's systemd:
+#the postinst enables the timer for every user or for none, as debconf says, and starts or stops
+#it in the users' systemd already running. dh runs dh_installsystemduser from compat 12 on: at
+#compat 9 it runs here, before dh_installdeb gathers what it adds to the maintainer scripts
+override_dh_installinit:
+	dh_installinit
+	dh_installsystemduser --name=watch-battery --no-enable
 
 get-orig-source:
 	rm -rf debian/tmp; mkdir debian/tmp

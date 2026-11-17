@@ -1,9 +1,9 @@
 Template: minos-desktop-tools/cronjobs
 Type: multiselect
-Choices: watch-battery, backup-mozilla
-Default: watch-battery, backup-mozilla
-Description: Select the cronjobs to be installed.
- Minos default behavor requires additional cronjobs to fullfill the minos
+Choices: watch-battery
+Default: watch-battery
+Description: Select the jobs to be run.
+ Minos default behavor requires additional jobs to fullfill the minos
  experience, all add-ons can be enable or disable by marking the following
  list
  .
@@ -12,6 +12,3 @@ Description: Select the cronjobs to be installed.
  behind 5%. This behavour can be controlled throught the m-battery-config
  variable in either /etc/minos/config or $/HOME/.minos/config.
  See http://minos.io/doc/config for more details
- .
- backup-mozilla: create rotative mozilla backups to $HOME/.mozilla-backups
- for every user in the system. By default it saves 5 compressed snapshopts.

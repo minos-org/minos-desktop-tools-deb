@@ -1,0 +1,12 @@
+#This file is part of the minos-desktop-tools package
+#a unit of each user's systemd, started every minute by watch-battery.timer: the script runs as
+#the user of the session and acts as that user; root and the system users never run it
+[Unit]
+Description=Warn when the battery runs low, act when it runs out
+ConditionUser=!@system
+
+[Service]
+Type=oneshot
+#the countdown (30 s), then the action and the power off after a refused one, a minute each at most
+TimeoutStartSec=3min
+ExecStart=/usr/bin/watch-battery

@@ -2,28 +2,72 @@
 set -e
 . /usr/share/debconf/confmodule
 
+_user_systemctl() {
+    #$1 => uid, then systemctl's arguments, for that user's systemd, reached as the user through
+    #its private socket: deb-systemd-invoke --user needs a user bus (dbus-user-session), which
+    #minos does not install
+    _user_systemctl__uid="${1}"; shift
+    runuser -u "$(getent passwd "${_user_systemctl__uid}" | cut -d: -f1)" -- \
+        env XDG_RUNTIME_DIR="/run/user/${_user_systemctl__uid}" systemctl --user "${@}"
+}
+
+_switch_user_timers() {
+    #$1 => start or stop: watch-battery's units in every user's systemd already running, which
+    #would see the change only at the user's next login otherwise. One that cannot be reached
+    #is said, and gets the change at that login
+    [ -z "${DPKG_ROOT:-}" ] && [ -d /run/systemd/system ] || return 0
+    for _switch_user_timers__uid in $(systemctl list-units --plain --no-legend 'user@*.service' | \
+        sed -n 's/^ *user@\([0-9][0-9]*\)\.service .*/\1/p'); do
+        case "${1}" in
+            start)
+                _user_systemctl "${_switch_user_timers__uid}" daemon-reload &&
+                _user_systemctl "${_switch_user_timers__uid}" start watch-battery.timer ;;
+            stop) #the units that run: the timer, and the service in the middle of a run
+                _switch_user_timers__loaded="$(_user_systemctl "${_switch_user_timers__uid}" list-units \
+                    --state=active,activating,deactivating,reloading --plain --no-legend \
+                    watch-battery.timer watch-battery.service | awk '{print $1}')" &&
+                { [ -z "${_switch_user_timers__loaded}" ] || _user_systemctl \
+                    "${_switch_user_timers__uid}" stop ${_switch_user_timers__loaded}; } ;;
+        esac || printf "%s\\n" "minos-desktop-tools: the systemd of uid ${_switch_user_timers__uid} could not be reached, watch-battery.timer will ${1} at its next login" >&2
+    done
+}
+
 case "${1}" in
     configure)
-        #get settings from user
+        #the jobs ran from /etc/cron.d, and minos installs no cron daemon: an enabled cron file is a
+        #conffile and goes through the maintscript (rm_conffile), a disabled one (renamed by the old
+        #postinst) is not and goes here. backup-mozilla left with firefox
+        rm -f /etc/cron.d/watch-battery.disabled /etc/cron.d/backup-mozilla.disabled
+
+        #then watch-battery ran as root from a timer of the system, whose unit files this version
+        #no longer has: it stops if it still runs, and its links and their records go
+        if deb-systemd-helper debian-installed watch-battery.timer; then
+            if [ -z "${DPKG_ROOT:-}" ] && [ -d /run/systemd/system ]; then
+                _loaded="$(systemctl list-units --state=active,activating,deactivating,reloading \
+                    --plain --no-legend watch-battery.timer watch-battery.service | awk '{print $1}')"
+                [ -z "${_loaded}" ] || systemctl stop ${_loaded}
+            fi
+            deb-systemd-helper purge watch-battery.timer watch-battery.service >/dev/null
+            deb-systemd-helper unmask watch-battery.timer watch-battery.service >/dev/null
+            if [ -z "${DPKG_ROOT:-}" ] && [ -d /run/systemd/system ]; then
+                systemctl --system daemon-reload
+            fi
+        fi
+
+        #now it runs as each user, from a timer of the user's systemd. Selected, the timer is enabled
+        #for every user and started where users are logged in: unmasked first (a removal masked it),
+        #reenabled since enable alone does not bring back a timer it disabled before. Deselected, it
+        #is disabled and stopped
         db_get minos-desktop-tools/cronjobs
-        cronjobs="${RET}"
-
-        #get default settings
-        db_metaget minos-desktop-tools/cronjobs Choices
-        origcronjobs="${RET}"
-
-        #first disable all settings
-        for origcronjob in ${origcronjobs}; do
-            #eg:watch-battery, backup-mozilla
-            origcronjob="${origcronjob%,*}"
-            mv /etc/cron.d/"${origcronjob}" /etc/cron.d/"${origcronjob}".disabled 2>/dev/null || true
-        done
-
-        #then enable only the selected ones
-        for cronjob in ${cronjobs}; do
-            cronjob="${cronjob%,*}"
-            mv /etc/cron.d/"${cronjob}".disabled /etc/cron.d/"${cronjob}" 2>/dev/null || true
-        done
+        case ", ${RET}," in
+            *", watch-battery,"*)
+                deb-systemd-helper --user unmask watch-battery.timer >/dev/null
+                deb-systemd-helper --user reenable watch-battery.timer >/dev/null
+                _switch_user_timers start ;;
+            *)
+                deb-systemd-helper --user disable watch-battery.timer >/dev/null
+                _switch_user_timers stop ;;
+        esac
         ;;
     abort-upgrade|abort-deconfigure|abort-remove)
         ;;

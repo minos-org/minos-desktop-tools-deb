@@ -1,0 +1,13 @@
+#This file is part of the minos-desktop-tools package
+#enabled for every user (systemctl --global); dpkg-reconfigure minos-desktop-tools turns it off and on
+[Unit]
+Description=Check the battery every minute
+ConditionUser=!@system
+
+[Timer]
+OnStartupSec=1min
+OnUnitActiveSec=1min
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

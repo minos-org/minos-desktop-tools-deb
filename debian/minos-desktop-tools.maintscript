@@ -1,0 +1,2 @@
+rm_conffile /etc/cron.d/backup-mozilla
+rm_conffile /etc/cron.d/watch-battery

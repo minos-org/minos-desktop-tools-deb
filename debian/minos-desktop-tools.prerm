@@ -1,0 +1,30 @@
+#!/bin/sh
+set -e
+
+_user_systemctl() {
+    #$1 => uid, then systemctl's arguments, for that user's systemd, reached as the user through
+    #its private socket: deb-systemd-invoke --user needs a user bus (dbus-user-session), which
+    #minos does not install
+    _user_systemctl__uid="${1}"; shift
+    runuser -u "$(getent passwd "${_user_systemctl__uid}" | cut -d: -f1)" -- \
+        env XDG_RUNTIME_DIR="/run/user/${_user_systemctl__uid}" systemctl --user "${@}"
+}
+
+case "${1}" in
+    remove)
+        #watch-battery's units stop in every user's systemd already running (the postinst starts
+        #them there); one that cannot be reached is said
+        if [ -z "${DPKG_ROOT:-}" ] && [ -d /run/systemd/system ]; then
+            for _uid in $(systemctl list-units --plain --no-legend 'user@*.service' | \
+                sed -n 's/^ *user@\([0-9][0-9]*\)\.service .*/\1/p'); do
+                _loaded="$(_user_systemctl "${_uid}" list-units --state=active,activating,deactivating,reloading \
+                    --plain --no-legend watch-battery.timer watch-battery.service | awk '{print $1}')" &&
+                { [ -z "${_loaded}" ] || _user_systemctl "${_uid}" stop ${_loaded}; } ||
+                printf "%s\\n" "minos-desktop-tools: the systemd of uid ${_uid} could not be reached, watch-battery.timer goes at its next login" >&2
+            done
+        fi
+        ;;
+esac
+
+#DEBHELPER#
+exit 0
